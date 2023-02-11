@@ -8,61 +8,44 @@ public class Main {
 
     public static void main(String [] args) {
 
+        /** getStoreDetails and getItemDetails URL for demo*/
+        String getStoreDetailsURL = "https://apimdev.wakefern.com/mockexample/V1/getStoreDetails";
+        String getItemDetailsURL = "https://apimdev.wakefern.com/mockexample/V1/getItemDetails";
+
 /**
- * /getStoreDetails
- * Get Request: Returns all Stores with their address and phone number
+ * Get Request Template
  */
         // 1 - Create Client
         HttpClient clientStores = HttpClient.newHttpClient();
 
         // 2 - Build Request with headers
-        HttpRequest requestStores = HttpRequest.newBuilder()
-                .uri(URI.create("https://apimdev.wakefern.com/mockexample/V1/getStoreDetails"))
-                .header("Ocp-Apim-Subscription-Key", "4ae9400a1eda4f14b3e7227f24b74b44")
-                .method("GET", HttpRequest.BodyPublishers.noBody())
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(/** Set URL Here */))
+                .header("Ocp-Apim-Subscription-Key", "4ae9400a1eda4f14b3e7227f24b74b44")      //Set Other Headers
+                .method(/**Set Method Here */, HttpRequest.BodyPublishers.noBody())
                 .build();
 
+
+        // 3 - Client sends request and saves the response in a variable
         try {
-            // 3 - Client sends request and saves the response in a variable
-            HttpResponse responseStores = clientStores.send(requestStores, HttpResponse.BodyHandlers.ofString());
+            HttpResponse response = clientStores.send(/** Add request here */, HttpResponse.BodyHandlers.ofString());
 
             // 4 - Print response in console
-            System.out.println(responseStores.body());
+            /** Print Response Here */
 
             // 5 - Error Handling
+            /**
+             * Error Handling Conventions:
+             * Errors are generally saved in a separate log file to be accessed in the future
+             * In production, code generally should not print anything on the console
+             * Console logging is okay for development/debugging purposes
+             */
         } catch (IOException e) {
-            e.printStackTrace();
+           /** Set Error Handling Here */
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            /** Set Error Handling Here */
         }
 
-/**
- * /getItemDetails
- * Get Request: Returns all items sold in a store with their base price and discount prices
- */
-
-        // 1 - Create Client
-        HttpClient clientItems = HttpClient.newHttpClient();
-
-        // 2 - Build Request with headers
-        HttpRequest requestItems = HttpRequest.newBuilder()
-                .uri(URI.create("https://apimdev.wakefern.com/mockexample/V1/getItemDetails"))
-                .header("Ocp-Apim-Subscription-Key", "4ae9400a1eda4f14b3e7227f24b74b44")
-                .method("GET", HttpRequest.BodyPublishers.noBody())
-                .build();
-
-        try {
-            // 3 - Client sends request and saves the response in a variable
-            HttpResponse responseItems = clientItems.send(requestItems, HttpResponse.BodyHandlers.ofString());
-
-            // 4 - Print response in console
-            System.out.println(responseItems.body());
-
-            // 5 - Error Handling
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
+
 }
